@@ -12,8 +12,6 @@
 | encrypted_password | string | null:false |
 | birth_day         | date   | null:false |
 has_many :products dependent: :destroy
-belongs_to :destination dependent: :destroy
-belongs_to :card dependent: :destroy
 
 ## destinationsテーブル
 | Column            |  Type  |  Options   |
@@ -25,23 +23,17 @@ belongs_to :card dependent: :destroy
 | address           | string | null:false |
 | building_name     | string |            |
 | phone_number      | string |            |  
-belongs_to :user
+belongs_to :wallet 
 
 
 ## walletsテーブル
 | Column            |  Type  |  Options   |
 | ----------------- | ------ | ---------- |
-| user_id           | integer | null:false |
-| product_id        | integer | null:false | 
+| user              | references | null: false, foreign_key: true |
+| product           | references | null: false, foreign_key: true |
 belongs_to :user
+belongs_to :product
 
-
-## categoryテーブル
-| Column            |  Type  |  Options   |
-| ----------------- | ------ | ---------- |
-| name              | string | null:false | 
-| ancestry          | string |            | 
-has_many :products
 
 ## productsテーブル
 | Column            | Type   |  Options   |
@@ -52,10 +44,9 @@ has_many :products
 | status            | string | null:false |
 | size              | string | null:false | 
 | category          | string | null:false |
-| shipping_charge   | string | null:false | 
-| shipping_days     | string | null:false |  
+| shipping_charge_id | integer | null:false | 
+| shipping_days_id  | integer | null:false |  
 belongs_to :user dependent: :destroy
-has_many :images dependent: :destroy
 
 
 This README would normally document whatever steps are necessary to get the
