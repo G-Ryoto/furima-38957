@@ -11,18 +11,20 @@
 | nickname          | string | null:false |
 | encrypted_password | string | null:false |
 | birth_day         | date   | null:false |
-has_many :products dependent: :destroy
+has_many :products 
+has_many :wallets
 
 ## destinationsテーブル
 | Column            |  Type  |  Options   |
 | ----------------- | ------ | ---------- |
-| user_id           | integer | null:false |
 | post_code         | string | null:false | 
-| prefecture        | string | null:false | 
+| prefecture_id     | integer | null:false | 
 | city              | string | null:false | 
 | address           | string | null:false |
 | building_name     | string |            |
-| phone_number      | string |            |  
+| phone_number      | string | null:false |
+| wallet            | references | foreign_key: true | 
+| user              | references | null: false, foreign_key: true |
 belongs_to :wallet 
 
 
@@ -33,20 +35,23 @@ belongs_to :wallet
 | product           | references | null: false, foreign_key: true |
 belongs_to :user
 belongs_to :product
+has_many :wallets
 
 
 ## productsテーブル
 | Column            | Type   |  Options   |
 | ----------------- | ------ | ---------- |
 | name              | string | null:false |
+| user              | references | null: false, foreign_key: true |
 | price             | integer | null:false |
 | description       | text   | null:false | 
-| status            | string | null:false |
-| size              | string | null:false | 
-| category          | string | null:false |
+| status_id         | integer | null:false |
+| size_id           | integer | null:false | 
+| category_id       | integer | null:false |
 | shipping_charge_id | integer | null:false | 
 | shipping_days_id  | integer | null:false |  
-belongs_to :user dependent: :destroy
+| prefecture_id     | integer | null:false | 
+belongs_to :user
 
 
 This README would normally document whatever steps are necessary to get the
