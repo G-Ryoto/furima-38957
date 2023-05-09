@@ -11,6 +11,8 @@
 | nickname          | string | null:false |
 | encrypted_password | string | null:false |
 | birth_day         | date   | null:false |
+
+### Association
 has_many :products 
 has_many :wallets
 
@@ -24,6 +26,8 @@ has_many :wallets
 | building_name     | string |            |
 | phone_number      | string | null:false |
 | wallet            | references | foreign_key: true | 
+
+### Association
 belongs_to :wallet 
 
 
@@ -32,9 +36,11 @@ belongs_to :wallet
 | ----------------- | ------ | ---------- |
 | user              | references | null: false, foreign_key: true |
 | product           | references | null: false, foreign_key: true |
+
+### Association
 belongs_to :user
 belongs_to :product
-belongs_to :destination
+has_one :destination
 
 
 ## productsテーブル
@@ -45,13 +51,14 @@ belongs_to :destination
 | price             | integer | null:false |
 | description       | text   | null:false | 
 | status_id         | integer | null:false |
-| size              | string  | null:false | 
 | category_id       | integer | null:false |
 | shipping_charge_id | integer | null:false | 
-| shipping_days_id  | integer | null:false |  
+| shipping_day_id  | integer | null:false |  
 | prefecture_id     | integer | null:false | 
+
+### Association
 belongs_to :user
-belongs_to :wallet
+has_one :wallet
 
 
 This README would normally document whatever steps are necessary to get the
