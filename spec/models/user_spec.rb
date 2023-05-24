@@ -49,13 +49,14 @@ RSpec.describe User, type: :model do
       @user.password = '1'
       @user.password_confirmation = '1'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      expect(@user.errors.full_messages).to include('Password は半角英字と半角数字の両方を含む必要があります')
     end
     it '英字のみのパスワードでは登録できない' do
       @user.password = 'a'
       @user.password_confirmation = 'a'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      binding.pry
+      expect(@user.errors.full_messages).to include('Password は半角英字と半角数字の両方を含む必要があります')
     end
     it '重複したemailが存在する場合は登録できない' do
       @user.save
