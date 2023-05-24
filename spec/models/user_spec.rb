@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+   
   before do
     @user = FactoryBot.build(:user)
   end
 
-   describe "ユーザー新規登録" do
+   context "ユーザー新規登録できない時" do
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
       @user.valid?
@@ -38,10 +39,21 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
-    it 'passwordが半角英数字混合でない' do
+    it '全角文字を含むパスワードでは登録できない' do
       @user.password = 'あ'
       @user.password_confirmation = 'あ'
-      #binding.pry
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+    end
+    it '数字のみのパスワードでは登録できない' do
+      @user.password = '1'
+      @user.password_confirmation = '1'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+    end
+    it '英字のみのパスワードでは登録できない' do
+      @user.password = 'a'
+      @user.password_confirmation = 'a'
       @user.valid?
       expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
