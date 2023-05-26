@@ -6,6 +6,12 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
 
+    describe 'ユーザー新規登録' do
+      context '新規登録できるとき' do
+      it 'nicknameとemail、passwordとpassword_confirmationが存在すれば登録できる' do
+       expect(@user).to be_valid
+      end
+    end
    context "ユーザー新規登録できない時" do
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
@@ -16,6 +22,11 @@ RSpec.describe User, type: :model do
       @user.email = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Email can't be blank")
+    end
+    it 'brith_dayがからでは登録できない' do
+      @user.birth_day = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Birth_day can't be blank")
     end
     it 'passwordが空では登録できない' do
       @user.password = ''
@@ -55,7 +66,6 @@ RSpec.describe User, type: :model do
       @user.password = 'a'
       @user.password_confirmation = 'a'
       @user.valid?
-      binding.pry
       expect(@user.errors.full_messages).to include('Password は半角英字と半角数字の両方を含む必要があります')
     end
     it '重複したemailが存在する場合は登録できない' do
