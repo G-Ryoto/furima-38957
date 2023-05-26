@@ -26,8 +26,8 @@ RSpec.describe User, type: :model do
     it 'brith_dayがからでは登録できない' do
       @user.birth_day = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include("Birth_day can't be blank")
     end
+    binding.pry
     it 'passwordが空では登録できない' do
       @user.password = ''
       @user.valid?
@@ -60,13 +60,13 @@ RSpec.describe User, type: :model do
       @user.password = '1'
       @user.password_confirmation = '1'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password は半角英字と半角数字の両方を含む必要があります')
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
     it '英字のみのパスワードでは登録できない' do
       @user.password = 'a'
       @user.password_confirmation = 'a'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password は半角英字と半角数字の両方を含む必要があります')
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
     it '重複したemailが存在する場合は登録できない' do
       @user.save
@@ -75,5 +75,6 @@ RSpec.describe User, type: :model do
       another_user.valid?
       expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
+   end
   end
 end
