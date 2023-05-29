@@ -75,9 +75,6 @@ RSpec.describe User, type: :model do
       another_user.valid?
       expect(another_user.errors.full_messages).to include('Email has already been taken')
     end
-   end
-
-   context '新規登録ができないとき' do
     it '姓（全角）に半角文字が含まれていると登録できないこと' do
       @user.family_name = 'Yamada'
       @user.valid?
