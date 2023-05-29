@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
       @user.password = 'あ'
       @user.password_confirmation = 'あ'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      expect(@user.errors.full_messages).to include( "Password は半角英数を両方含む必要があります")
     end
     it '数字のみのパスワードでは登録できない' do
       @user.password = '333333'
@@ -66,7 +66,7 @@ RSpec.describe User, type: :model do
       @user.password = 'a'
       @user.password_confirmation = 'a'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      expect(@user.errors.full_messages).to include( "Password は半角英数を両方含む必要があります")
     end
     it '重複したemailが存在する場合は登録できない' do
       @user.save
@@ -82,56 +82,38 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include("Family name can't be blank")
     end
-   end
-
+  end
    context '姓（全角）に半角文字が含まれている場合' do
     it '登録できないこと' do
       @user.family_name = 'Yamada'
       @user.valid?
       expect(@user.errors.full_messages).to include('Family name は全角で入力してください')
     end
-   end
-
-   context '名（全角）が空の場合' do
     it '登録できないこと' do
       @user.first_name = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("First name can't be blank")
     end
-   end
-
-   context '名（全角）に半角文字が含まれている場合' do
     it '登録できないこと' do
       @user.first_name = 'Taro'
       @user.valid?
       expect(@user.errors.full_messages).to include("First name は全角で入力してください")
     end
-   end
-   context '姓（カナ）が空の場合' do
     it '登録できないこと' do
       @user.family_name_kana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Family name kana can't be blank")
     end
-   end
-
-   context '姓（カナ）にカタカナ以外の文字が含まれている場合' do
     it '登録できないこと' do
       @user.family_name_kana = '山田太郎'
       @user.valid?
       expect(@user.errors.full_messages).to include("Family name kana は全角カタカナで入力してください")
     end
-   end
-
-   context '名（カナ）が空の場合' do
     it '登録できないこと' do
       @user.first_name_kana = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("First name kana can't be blank")
     end
-   end
-
-   context '名（カナ）にカタカナ以外の文字が含まれている場合' do
     it '登録できないこと' do
       @user.first_name_kana = 'たろう'
       @user.valid?
