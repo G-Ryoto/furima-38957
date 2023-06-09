@@ -5,15 +5,21 @@ RSpec.describe Item, type: :model do
   
    before do
     @item = FactoryBot.build(:item)
-    
+    @item.image = fixture_file_upload('public/images/furima.png')
    end
 
-    # describe '出品機能を追加' do
-    #   context '新規登録できるとき' do
-    #   it 'imageとproduct_name、product_explanationとcategory_idとstatusとshipping_dateとshipping_chargeとprefectureとpriceが存在すれば出品できる' do
-    #    expect(@item).to be_valid
-    #   end
-    # end
+     describe '出品機能' do
+    context '出品ができる時' do
+      it "必須項目が全てあれば登録できること" do
+        expect(@item).to be_valid
+      end
+      it 'ログイン状態のユーザーのみ、商品出品ページへ遷移できること' do
+        @item = FactoryBot.create(:user)
+        expect(@item).to be_valid
+      end
+    end
+
+
 
 
      context "商品出品ができない時" do
@@ -62,7 +68,15 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
+      it '売価格は、¥300~¥9,999,999の間のみ保存可能であること' do
+        @item.price = '100'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+
+      
     end
   end 
+end
 
 
