@@ -17,7 +17,7 @@ class Item < ApplicationRecord
    validates :shipping_charge_id,  numericality: { other_than: 1 } 
    validates :shipping_date_id,  numericality: { other_than: 1 } 
    validates :status_id,  numericality: { other_than: 1 } 
-   validates :price, presence: true, format: { with: /\A[0-9]+\z/, message: "Half-width number" }, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
+   validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
   
 
 
