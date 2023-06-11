@@ -5,7 +5,6 @@ RSpec.describe Item, type: :model do
   
    before do
     @item = FactoryBot.build(:item)
-    @item.image = fixture_file_upload('public/images/furima.png')
    end
 
      describe '出品機能' do
@@ -43,26 +42,51 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category is not a number")
       end
+      # it 'カテゴリーに「---」が選択されている場合は出品できない' do
+      #   @item.category_id = '---'
+      #   @item.valid?
+      #   except(@item.errors.full_messages).to include("")
+      #  end
       it 'statusが空では登録できない' do
         @item.status_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Status is not a number")
       end
+      # it '商品の状態に「---」が選択されている場合は出品できない' do
+      #   @item.status_id = ''
+      #   @item.valid?
+      #   except(@item.errors.full_messages).to include("")
+      # end 
       it 'shipping_chargeが空では登録できない' do
         @item.shipping_charge_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping charge is not a number")
+      end
+      # it '配送料の負担に「---」が選択されている場合は出品できない' do
+      #    @item.shipping_charge_id = ''
+      #    @item.valid?
+      #    except(@item.errors.full_messages).to include("")
       end
       it 'prefectureが空では登録できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture is not a number")
       end
+      # it '発送元の地域に「---」が選択されている場合は出品できない' do
+      #   @item.prefecture_id = ''
+      #   @item.valid?
+      #   expect(@item.errors.full_messages).to include("")
+      # end
       it 'shipping_dateが空では登録できない' do
         @item.shipping_date_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping date is not a number")
       end
+      # it '発送までの日数に「---」が選択されている場合は出品できない' do
+      #   @item.shipping_date_id = ''
+      #   @item.valid?
+      #   expect(@item.errors.full_messages).to include("")
+      # end
       it 'priceが空では登録できない' do
         @item.price = ''
         @item.valid?
@@ -73,10 +97,21 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
-
-      
+      it '価格は半角数値で入力されていない場合登録できない' do
+        @item.price = '１０００ '
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      # it '価格が9_999_999円を超えると出品できない' do
+      #   @item.price = '9_000_000_000'
+      #   @item.valid?
+      #   expect(@item.errors.full_messages).to include("")
+      # end
+      # it 'userが紐付いていなければ出品できない' do
+      #   @item.user = user_id: current_user.id
+      #   @item.valid?
+      #   expect(@item.errors.full_messages).to include("")
     end
   end 
-end
 
 

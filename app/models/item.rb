@@ -7,12 +7,6 @@ class Item < ApplicationRecord
   belongs_to :shipping_charge
   belongs_to :shipping_date
   
-  attribute :price, :integer
-  attribute :status_id, :integer
-  attribute :shipping_date_id, :integer
-  attribute :shipping_charge_id, :integer
-  attribute :prefecture_id, :integer
-  attribute :user_id, :integer
   has_one_attached :image
 
    validates :category_id,  numericality: { other_than: 0 } 
