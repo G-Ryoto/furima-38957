@@ -43,7 +43,7 @@ belongs_to :product
 has_one :destination
 
 
-## productsテーブル
+## itemsテーブル
 | Column            | Type   |  Options   |
 | ----------------- | ------ | ---------- |
 | name              | string | null:false |
