@@ -48,9 +48,9 @@ RSpec.describe Item, type: :model do
          expect(@item.errors.full_messages).to include("Status must be other than 1")
        end 
        it '配送料の負担に「---」が選択されている場合は出品できない' do
-          @item.shipping_charge_id = ''
+          @item.shipping_charge_id = '1'
           @item.valid?
-          expect(@item.errors.full_messages).to include("Shipping charge is not a number")
+          expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
       end
        it '発送元の地域に「---」が選択されている場合は出品できない' do
          @item.prefecture_id = '0'
@@ -82,6 +82,11 @@ RSpec.describe Item, type: :model do
          @item.valid?
          expect(@item.errors.full_messages).to include("User must exist")
        end
+       it '価格がからでは登録できない' do
+          @item.price = ''
+          @item.valid?
+          expect(@item.errors.full_messages).to include("Price Out of setting range")
+       end 
     end
   end 
 end
