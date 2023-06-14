@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:create,:index]
   def index
-    @items = Item.all.order(created_at: :desc)
+    @item = Item.order("created_at DESC")
     #@items = Item.find(1)
     #@images = Image.all
 

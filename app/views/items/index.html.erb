@@ -128,8 +128,8 @@
     </div>
     <ul class='item-lists'>
 
-    <% if @items.present? %>
-     <% @items.each do |item| %>
+    <% if @item.present? %>
+     <% @item.each do |item| %>
       <li class='list'>
         <%= link_to "#" do %>
         <div class='item-img-content'>
@@ -149,11 +149,12 @@
             <%= item.product_name %>
           </h3>
           <div class='item-price'>
-            <span><%= item.price %>円<br><%= item.shipping_charge_id %></span>
-            <div class='star-btn'>
-              <%= image_tag "star.png", class:"star-icon" %>
-              <span class='star-count'>0</span>
-            </div>
+             <span><%= item.price %>円<br><%= item.shipping_charge.shipping_charge %></span>
+             <div class='star-btn'>
+               <%= image_tag "star.png", class:"star-icon" %>
+               <span class='star-count'>0</span>
+             </div>
+           </div>
           </div>
         </div>
         <% end %>
