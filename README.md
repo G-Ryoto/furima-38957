@@ -14,7 +14,7 @@
 
 ### Association
 has_many :products 
-has_many :wallets
+has_many :orders
 
 ## destinationsテーブル
 | Column            |  Type  |  Options   |
@@ -58,7 +58,7 @@ has_one :destination
 
 ### Association
 belongs_to :user
-has_one :wallet
+has_one :order
 
 
 This README would normally document whatever steps are necessary to get the

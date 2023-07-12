@@ -1,9 +1,11 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   
-  def order
-    # 注文に関連する処理を記述する
-  end
+ 
+    # テーブルとのアソシエーション
+    belongs_to :user
+    has_one :order
+  
   
   belongs_to :category
   belongs_to :status
@@ -29,8 +31,8 @@ class Item < ApplicationRecord
   with_options numericality: { other_than: 0 } do
     validates :category_id
     validates :prefecture_id
-    validates :item_status_id
-    validates :shipping_cost_id
+    validates :status_id
+    validates :shipping_charge_id
     validates :shipping_date_id
   end
 

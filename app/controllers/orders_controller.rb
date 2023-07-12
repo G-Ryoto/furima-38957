@@ -10,12 +10,6 @@ class OrdersController < ApplicationController
   def create
     @order_form = OrderForm.new(order_params)
     if @order_form.valid?
-      Payjp.api_key = "sk_test_d9acd7262ca89e9acba65bf3"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-      Payjp::Charge.create(
-        amount: order_params[:price],  # 商品の値段
-        card: order_params[:token],    # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
-      )
       pay_item
       @order_form.save
       redirect_to root_path
@@ -30,7 +24,7 @@ class OrdersController < ApplicationController
     params.require(:order_form).permit(:postcode, :prefecture_id, :city, :block, :building, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
   def pay_item
-    Payjp.api_key =  "sk_test_d9acd7262ca89e9acba65bf3"
+    Payjp.api_key = EMV["sk_test_d9acd7262ca89e9acba65bf3"]
     Payjp::Charge.create(
       amount: @item.price,        # 商品の値段
       card: order_params[:token], # カードトークン
