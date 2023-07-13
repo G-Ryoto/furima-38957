@@ -1,5 +1,11 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
+  
+ 
+    # テーブルとのアソシエーション
+  has_one :order
+  
+  
   belongs_to :category
   belongs_to :status
   belongs_to :user
@@ -19,6 +25,15 @@ class Item < ApplicationRecord
    validates :status_id,  numericality: { other_than: 1 } 
    validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
    validates :price, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, message: "Out of setting range" }
+
+   # ジャンルの選択が「--」の時は保存不可
+  with_options numericality: { other_than: 0 } do
+    validates :category_id
+    validates :prefecture_id
+    validates :status_id
+    validates :shipping_charge_id
+    validates :shipping_date_id
+  end
 
 
 
