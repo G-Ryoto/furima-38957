@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :order_form do
-    user_id { Faker::Number.non_zero_digit }
-    item_id {Faker::Number.non_zero_digit}
-    postcode {Faker::Number.decimal_part(digits: 3) + '-' + Faker::Nunber.decimal_part(digits: 4) }
-    prefecture_id {Faker::Number.between(from: 1, to: 47) }
-    city {Faker::Address.city }
-    block {Faker::Address.street_address }
-    building {Faker::Address.street_address }
-    phone_number { Faker::Number.decimal_part(digits: 11) }
+    user_id {3}
+    item_id {3}
+    postcode {"123-1234"}
+    prefecture_id {2}
+    city {"広島市中区土橋町"}
+    block {1-1-101}
+    building {"チサンマンション"}
+    phone_number { "00000000000" }
     token {Faker::Internet.password(min_length: 20, max_length: 30) }
   end
 end
