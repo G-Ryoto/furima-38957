@@ -7,6 +7,15 @@ require 'rails_helper'
   
     describe '配送先情報の保存' do
 
+      before do
+        user = FactoryBot.create(:user)
+        @order_form = FactoryBot.build(:order_form, user_id: user.id)
+      end
+      before do
+        item = FactoryBot.create(:item)
+        @order_form = FactoryBot.build(:order_form, user_id: item.id)
+      end
+
       context '配送先情報の保存ができるとき' do
         it 'すべての値が正しく入力されていれば保存できること' do
           expect(@order_form).to be_valid
