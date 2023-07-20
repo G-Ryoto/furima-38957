@@ -16,7 +16,7 @@
 has_many :products 
 has_many :orders
 
-## destinationsテーブル
+## paymentsテーブル
 | Column            |  Type  |  Options   |
 | ----------------- | ------ | ---------- |
 | post_code         | string | null:false | 
@@ -31,7 +31,7 @@ has_many :orders
 belongs_to :wallet 
 
 
-## walletsテーブル
+## ordersテーブル
 | Column            |  Type  |  Options   |
 | ----------------- | ------ | ---------- |
 | user              | references | null: false, foreign_key: true |
